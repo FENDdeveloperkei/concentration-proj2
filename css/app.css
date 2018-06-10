@@ -105,14 +105,6 @@ span {
   list-style: none;
   display: inline-flex;
 }
-p {
-  color: #ff6699;
-  font-size: 20px;
-}
-button {
-   color: #ff6699;
-   background-color: #ffffff;
-}
 /*The Model*/
 .model {
     display: none; /*by default*/
@@ -136,6 +128,10 @@ button {
     width: 80%; 
 }
 /*Close Button function*/
+button {
+   color: #ff6699;
+   background-color: #ffffff;
+}
 .close {
     color: #aaa;
     float: right;
