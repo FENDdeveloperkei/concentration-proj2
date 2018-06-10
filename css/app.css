@@ -1,0 +1,184 @@
+html {
+    box-sizing: border-box;
+    background-color: #D791E3;
+}
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+}
+body {
+    background: #ffffff;
+    font-family: 'Times Roman';
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 800px;
+    margin: auto;
+}
+h1 {
+    font-family: 'Monoton';
+    font-weight: 200;
+    font-size: 60px;
+    margin: 0.3em;
+    color: #ff6699;
+}
+span {
+  font-size: 25px;
+  color: #8F06BD;
+}
+/*Styles for deck of cards*/
+.deck {
+    width: 660px;
+    height: 660px;
+    background: linear-gradient(160deg, #ffff99 0%, #ff6699 100%);
+    padding: 32px;
+    border-radius: 10px;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20%;
+    grid-gap: 5px;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 3em;
+}
+.deck .card {
+    height: 125px;
+    width: 125px;
+    background: #ffffff;
+    font-size: 0;
+    color: #F7B500;
+    border-radius: 8px;
+    cursor: pointer;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+}
+.deck .card.open {
+    transform: rotateY(0);
+    background: #D200F7;
+    cursor: default;
+}
+.deck .card.show {
+    font-size: 33px;
+}
+.deck .card.match {
+    cursor: default;
+    background: #F5CEEC;
+    font-size: 33px;
+}
+.deck .card.disabled {
+    pointer-events: none;
+}
+/*Style for Score Panel*/
+.score-panel {
+    text-align: center;
+    width: 345px;
+    margin-bottom: 10px;
+}
+.score-panel .stars {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+.score-panel .stars li {
+    list-style: none;
+    display: inline-block;
+}
+.score-panel .restart {
+    cursor: pointer;
+}
+/* Rating */
+.finalRating {
+  list-style: none;
+  display: inline-flex;
+}
+p {
+  color: purple;
+  font-size: 20px;
+}
+button {
+   color: #ff6699;
+   background-color: white;
+}
+/*The Model*/
+.model {
+    display: none; /*by default*/
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+/*Model Content/Box*/
+.model-content {
+    text-align: center;
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+/*Close Button function*/
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/*place all queries here*/
+@media screen and (max-width: 660px) {
+  .deck {
+    width: 90%;
+  }
+  .deck .card {
+    width: 100px;
+    height: 100px;
+    margin: 5px auto;
+  }
+}
+@media screen and (max-width: 500px) {
+  .deck {
+    width: 90%;
+    height: 500px;
+  }
+  .deck .card {
+    width: 80px;
+    height: 80px;
+    margin: 5px auto;
+  }
+}
+@media screen and (max-width: 415px) {
+  .deck {
+    width: 90%;
+    height: 450px;
+  }
+  .deck .card {
+    width: 50px;
+    height: 50px;
+    margin: 5px auto;
+  }
+}
