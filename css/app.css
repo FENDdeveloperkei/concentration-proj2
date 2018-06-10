@@ -37,7 +37,7 @@ span {
   font-size: 20px;
   color: #aa7ecd;
 }
-stars {
+moves {
   color: aqua; 
 }
 /*Styles for deck of cards*/
@@ -143,7 +143,7 @@ button {
 }
 .close:hover,
 .close:focus {
-    color: black;
+    color: aqua;
     text-decoration: none;
     cursor: pointer;
 }
@@ -161,7 +161,7 @@ button {
 @media screen and (max-width: 500px) {
   .deck {
     width: 90%;
-    height: 500px;
+    height: 450px;
   }
   .deck .card {
     width: 80px;
