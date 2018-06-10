@@ -106,12 +106,12 @@ span {
   display: inline-flex;
 }
 p {
-  color: purple;
+  color: #ff6699;
   font-size: 20px;
 }
 button {
    color: #ff6699;
-   background-color: white;
+   background-color: #ffffff;
 }
 /*The Model*/
 .model {
