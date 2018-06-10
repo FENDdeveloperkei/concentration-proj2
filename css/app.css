@@ -37,9 +37,6 @@ span {
   font-size: 20px;
   color: #aa7ecd;
 }
-moves {
-  color: aqua; 
-}
 /*Styles for deck of cards*/
 .deck {
     width: 660px;
