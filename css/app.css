@@ -17,7 +17,6 @@ body {
 }
 body {
     background: #ffffff;
-    font-family: 'Times Roman';
 }
 .container {
     display: flex;
@@ -30,8 +29,8 @@ body {
 h1 {
     font-family: 'Monoton';
     font-weight: 200;
-    font-size: 60px;
-    margin: 0.3em;
+    font-size: 49px;
+    margin: 0.2em;
     color: #ff6699;
 }
 span {
