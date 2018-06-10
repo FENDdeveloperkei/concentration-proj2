@@ -133,14 +133,14 @@ button {
    background-color: #ffffff;
 }
 .close {
-    color: #aaa;
+    color: blue;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 .close:hover,
 .close:focus {
-    color: aqua;
+    color: red;
     text-decoration: none;
     cursor: pointer;
 }
