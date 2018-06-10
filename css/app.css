@@ -29,12 +29,12 @@ body {
 h1 {
     font-family: 'Monoton';
     font-weight: 300;
-    font-size: 30px;
+    font-size: 33px;
     margin: 0.2em;
     color: #ff6699;
 }
 span {
-  font-size: 19px;
+  font-size: 11px;
   color: #02ccba;
 }
 /*Styles for deck of cards*/
