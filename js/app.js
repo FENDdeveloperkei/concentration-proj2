@@ -102,16 +102,33 @@
  let second = 0;
 
  function startTimer() {
-     timing = window.setInterval(function () {
-           timer.innerHTML = second + " secs";
-             second++;
-         }, 1000);
+   timeCount = setInterval(function () {
+   time++;
+   displayClock();
+   }, 1000);
  }
-
+ //reset to 0
  function resetTimer() {
-   clearInterval(timing);
+   time = 0;
+   displayClock();
  }
+ //stop timer
+function stopTimer () {
+  clearInterval(timeCount);
+}
+//time of seconds and minutes
+function displayClock () {
+  let seconds = time % 60;
+ 
+  let minutes = Math.floor(time / 60);
 
+  if (seconds < 10) {
+    timer.innerHTML = `${minutes}:0${seconds}`;
+  } else {
+    timer.innerHTML = `${minutes}:${seconds}`;
+  }
+}
+  
  document.querySelector('.restart').addEventListener('click', resetTimer);
 
  //Move counter
