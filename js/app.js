@@ -136,14 +136,14 @@
  */
  //When all cards match, change so that model is shown
  let matchedCards = document.getElementsByClassName('match');
- let model = document.querySelector('.model');
+ let modal = document.querySelector('.modal');
  let finalTime = document.querySelector('.finalTime');
  let finalRating = document.querySelector('.finalRating');
  let finalMoves = document.querySelector('.finalMoves');
 
  function winGame() {
    if (matchedCards.length === 16) {
-     model.style.display = "block";
+     modal.style.display = "block";
      finalRating.innerHTML = stars.innerHTML;
      finalMoves.innerHTML = moveCounter.innerHTML;
      finalTime.innerHTML = timer.innerHTML;
@@ -153,12 +153,12 @@
  let span = document.getElementsByClassName("close")[0];
  //User clicks on <span> (x) to close the model
  span.onclick = function() {
-     model.style.display = "none";
+     modal.style.display = "none";
  };
  //User clicks anywhere outside of model will close
  window.onclick = function(event) {
-     if (event.target == model) {
-         model.style.display = "none";
+     if (event.target == modal) {
+         modal.style.display = "none";
      }
  };
  //Play again button will clear model/reset timer
@@ -167,7 +167,7 @@
  document.querySelector('.restart').addEventListener('click', playAgain);
 
  function playAgain() {
-   model.style.display = "none";
+   modal.style.display = "none";
    moveCounter.innerHTML = 0;
    one.style.visibility = 'visible';
    two.style.visibility = 'visible';
