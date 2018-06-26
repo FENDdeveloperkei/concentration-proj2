@@ -1,15 +1,9 @@
-/*
- * Create a list that holds all of your cards
- */
+/*Create a list that holds all of your cards*/
 
+/*Display the cards on the page -shuffle the list of cards using the provided "shuffle" method below
+ -loop through each card and create its HTML -add each card's HTML to the page*/
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
- /*Created with the help of Mike Wales https://www.youtube.com/watch?reload=9&reload=9&v=_rUH-sEs68Y&app=desktop*/
+/*Created with the help of Mike Wales https://www.youtube.com/watch?reload=9&reload=9&v=_rUH-sEs68Y&app=desktop*/
 
  const cards = ['fa-diamond', 'fa-diamond',
               'fa-paper-plane-o', 'fa-paper-plane-o',
