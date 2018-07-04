@@ -113,7 +113,7 @@ function stopTimer() {
 }
 
 function resetTimer() {
-   clearInterval(timing);
+  clearInterval(interval);
 }
 
  document.querySelector('.restart').addEventListener('click', resetTimer);
@@ -148,7 +148,7 @@ function resetTimer() {
  function winGame() {
    if (matchedCards.length === 16) {
      modal.style.display = "block";
-finalRating.innerHTML = stars.innerHTML;
+     finalRating.innerHTML = stars.innerHTML;
      finalMoves.innerHTML = moveCounter.innerHTML;
      finalTime.innerHTML = timer.innerHTML;
    }
