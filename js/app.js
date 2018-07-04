@@ -153,9 +153,10 @@ function resetTimer() {
      finalTime.innerHTML = timer.innerHTML;
    }
  }
-
+//<span> element that closes the model
+ let span = document.getElementsByClassName("close")[0];
 //User clicks on <span> (x) to close the model
- span.onclick = function() {
+span.onclick = function() {
       model.style.display = "none";
  };	 
 //User clicks anywhere outside of modal will close
