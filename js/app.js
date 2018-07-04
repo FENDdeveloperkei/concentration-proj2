@@ -102,16 +102,10 @@ function generateCard(card) {
  let second = 0;
 
  function startTimer() {
-     interval = setInterval(function() {
-        totalTime += 1; 
-        hours   = Math.floor( totalTime / 60 / 60);
-        minutes = Math.floor( (totalTime / 60) % 60);
-        seconds = totalTime % 60;
-        
-        secondsContainer.innerHTML = seconds;
-        minutesContainer.innerHTML = minutes;
-        hoursContainer.innerHTML   = hours;
-    }, 1000);
+     timing = window.setInterval(function () {
+           timer.innerHTML = second + " secs";
+             second++;
+         }, 1000);
 }
 
 function stopTimer() {
@@ -159,7 +153,13 @@ finalRating.innerHTML = stars.innerHTML;
      finalTime.innerHTML = timer.innerHTML;
    }
  }
- //User clicks anywhere outside of model will close
+//<span> element that closes the model
+ let span = document.getElementsByClassName("close")[0];
+//User clicks on <span> (x) to close the model
+ span.onclick = function() {
+      model.style.display = "none";
+ };	 
+//User clicks anywhere outside of modal will close
  window.onclick = function(event) {
      if (event.target == modal) {
          modal.style.display = "none";
