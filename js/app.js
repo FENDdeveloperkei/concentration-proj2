@@ -193,5 +193,3 @@ function shuffle(array) {
         const ratingTracker = document.querySelector('.modal_stars');
         ratingTracker.innerHTML = `Your rating= ${rating.children.length}`;
     }
-
- initGame();
