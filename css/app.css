@@ -7,26 +7,29 @@ html {
 *::before,
 *::after {
     box-sizing: inherit;
+    margin: 0;
+    padding: 0;
 }
+
 html,
 body {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    
 }
+
 body {
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    background: linear-gradient(160deg, #aa7ecd 0%, #02ccba 100%);
 }
+
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    max-width: 800px;
-    margin: auto;
 }
+
 h1 {
     font-family: 'Monoton';
     font-weight: 200;
@@ -34,7 +37,8 @@ h1 {
     margin: 0.2em;
     color: #ff6699;
 }
-/*Styles for deck of cards*/
+
+/*Styles for the deck of cards*/
 .deck {
     width: 660px;
     min-height: 680px;
@@ -48,12 +52,13 @@ h1 {
     align-items: center;
     margin: 0 0 3em;
 }
+
 .deck .card {
     height: 125px;
     width: 125px;
     background: #ffffff;
     font-size: 0;
-    color: #F7B500;
+    color: #ff6699;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
@@ -61,23 +66,23 @@ h1 {
     align-items: center;
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
+
 .deck .card.open {
     transform: rotateY(0);
     background: #D200F7;
     cursor: default;
 }
+
 .deck .card.show {
     font-size: 33px;
 }
+
 .deck .card.match {
     cursor: default;
-    background: #F5CEEC;
+    background:  #F5CEEC;
     font-size: 33px;
 }
-.deck .card.disabled {
-    pointer-events: none;
-}
-/*Style for Score Panel*/
+/*Style for the Score Panel*/
 .score-panel {
     text-align: left;
     width: 345px;
@@ -90,108 +95,89 @@ h1 {
     display: inline-block;
     margin: 0 5px 0 0;
 }
+
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
 }
+
 .score-panel .restart {
     float: right;
     cursor: pointer;
 }
 
-.timer {
-    display: inline-block;
-    margin-left: 80px;
+/*Media query for responsiveness*/
+@media screen and (max-width: 450px){
+    header, .score-panel, .deck{
+        display: flex;
+        justify-content: space-between;
+    }
+    .deck{
+    height: auto;
+    max-width: 100%;
+    }
 }
-.hide {
-  display: none;
-}
-/* Rating */
-.finalRating {
-  list-style: none;
-  display: inline-flex;
-}
-p {
-  color: purple;
-  font-size: 20px;
-}
-button {
-   color: #ff;
-   background-color: #02ccba;
-}
-/*The Modal*/
+
+/* Styles for modal backgroud
+ Parts of the styles below are inspired from
+ Source - https://matthewcranford.com/memory-game-walkthrough-part-7-making-a-modal/
+ */
 .modal_background {
     position: absolute;
-    top: 0;
+    top :0;
     left: 0;
     height: 100%;
-    width: 100%; 
-    background-color: rgba(0, 0, 0, 0.438);
+    width: 100%;
+    background: rgba(0, 0, 0, 0.363)
 }
-/*Model Content/Box*/
-.modal_body {
+/* Styles for modal body*/
+.modal_body{
     position: relative;
-    width: 400px;
-    top: 35%;
-    margin: auto; 
-    background-color: #fefefe;
+    width: 300px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    border-style: solid;
+    background: white;
+    transform: translate(-50%, -70%);
 }
-
-/*Close Button function*/
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+/* Style to hide modal*/
+.hide {
+    display: none;
 }
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
+/* Style for modal heading elements*/
+.modal_heading{
+    text-align: center;
+    padding-bottom: 1em;
+}
+/* Style for stats displayed in modal*/
+.modal_stats{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+/* Style for modal buttons*/
+.modal_buttons{
+    justify-content: space-around;
+    align-items: center;
+    padding: 1em;
+    margin: 1em;
+    display: flex;
+}
+.modal_cancel_button,.modal_replay_button {
+    height: 48px;
+    font-size: 16px;
     cursor: pointer;
+    padding: 0.25rem 0.25rem;
 }
-#final-stars {
-  list-style: none;
-  display: inline-flex;
+.modal_cancel_button{
+    background: yellow;
 }
-.close {
-    margin: 5px;
+.modal_replay_button{
+    background: pink;
 }
-.replay {
-    margin: 5px;
+button:hover,
+button:focus {
+    background: #fefefe;
 }
-
-/*place all queries here*/
-@media screen and (max-width: 660px) {
-  .deck {
-    width: 90%;
-  }
-  .deck .card {
-    width: 100px;
-    height: 100px;
-    margin: 5px auto;
-  }
-}
-@media screen and (max-width: 500px) {
-  .deck {
-    width: 90%;
-    height: 500px;
-  }
-  .deck .card {
-    width: 80px;
-    height: 80px;
-    margin: 5px auto;
-  }
-}
-@media screen and (max-width: 415px) {
-  .deck {
-    width: 90%;
-    height: 450px;
-  }
-  .deck .card {
-    width: 50px;
-    height: 50px;
-    margin: 5px auto;
-   }
-}
-
