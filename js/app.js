@@ -1,182 +1,197 @@
-/*
- * Create a list that holds all of your cards
- */
+/*Create a list that holds all of your cards*/
 
+/*Display the cards on the page -shuffle the list of cards using the provided "shuffle" method below
+ -loop through each card and create its HTML -add each card's HTML to the page*/
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
- /*Created with the help of Mike Wales https://www.youtube.com/watch?reload=9&reload=9&v=_rUH-sEs68Y&app=desktop*/
+/*Created with the help of Mike Wales https://www.youtube.com/watch?reload=9&reload=9&v=_rUH-sEs68Y&app=desktop*/
 
- const cards = ['fa-diamond', 'fa-diamond',
-	      'fa-paper-plane-o', 'fa-paper-plane-o',
-              'fa-anchor', 'fa-anchor',
-              'fa-bolt', 'fa-bolt',
-              'fa-cube', 'fa-cube',
-              'fa-leaf', 'fa-leaf',
-              'fa-bicycle', 'fa-bicycle',
-              'fa-bomb', 'fa-bomb'];
+    const deckElement = document.querySelector('.deck');
+
+    const shuffledDeck = shuffle(Array.from(document.querySelectorAll('.card')));
+
+    for (card of shuffledDeck) {
+        deckElement.appendChild(card);
+    }
+
+// Shuffle function from http://stackoverflow.com/a/2450976
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
  
- //Returns HTML for each card
-function generateCard(card) {
-   return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
- }
- /*loop each card and create its HTML & add each card's HTML to page*/
+    deckElement.addEventListener('click', gameLogic);
+    //Array to hold open cards
+    let openCards = [];
+    
+    function gameLogic(event) {
+        const targetCard = event.target;
+        
+        if (!targetCard.classList.contains('card')) {
+            return;
+        }
+        //first click starts timer
+        if (firstClick === false) {
+            firstClick = true;
+            startTimer();
+        }
+        
+        if (verifyCardSate(targetCard)) {
+            
+            openCards.push(targetCard);
+            
+            counter++;
 
- // Shuffle function from http://stackoverflow.com/a/2450976
- function shuffle(array) {
-   let currentIndex = array.length,
-     temporaryValue,
-     randomIndex;
+            
+            openCard(targetCard);
 
-   while (currentIndex !== 0) {
-     randomIndex = Math.floor(Math.random() * currentIndex);
-     currentIndex -= 1;
-     temporaryValue = array[currentIndex];
-     array[currentIndex] = array[randomIndex];
-     array[randomIndex] = temporaryValue;
-   }
+            
+            setMoves(moves);
+            setScores(counter);
 
-   return array;
- }
- /*If a card is clicked it will display the card symbol & if the cards do not match, remove the cards from the list & hide the card symbol*/
+            
+            if (openCards.length === 2) {
+                if (openCards[0].children[0].classList.value === openCards[1].children[0].classList.value) {
+                    
+                    matchCard(openCards[0]);
+                    matchCard(openCards[1]);
+                    //Counts matched pairs
+                    matches++;
+                    //When all cards matched, stop timer & show results    
+                    if (matches === 8) {
+                        stopTimer();
+                        displayResults();
+                        return;
+                    }
+                    
+                    openCards = [];
+                }
+                
+                setTimeout(function () {
+                    openCards.forEach(function (targetCard) {
+                        closeCard(targetCard);
+                    });
+                    openCards = [];
+                }, 1000);
+            }
+        }
+    }
 
- //Passing in each card and turning it into an HTML string
- function initGame() {
-   startTimer();
-   let deck = document.querySelector('.deck');
-   let cardHTML = shuffle(cards).map(function(card) {
-     return generateCard(card);
-   });
+    
+    let firstClick = false;
+    let matches = 0;
+    let counter = 0;
+    let minutes = 0, seconds = 0;
+    let timer;
 
-   deck.innerHTML = cardHTML.join('');
+     
+    let rating = document.querySelector('.stars');
+    let moves = document.querySelector('.moves');
 
-   let allCards = document.querySelectorAll('.card');
-   let openCards = [];
+    //Assigns click event listener to Reset Game icon
+    document.querySelector('.restart').addEventListener('click', resetGame);
 
- allCards.forEach(function(card) {
-   card.addEventListener('click', function(e) {
+    /*start, format and stop timer are inspired from webinar - https://www.youtube.com/watch?v=h_vUG-vi2LY*/
 
-     if (
-       !card.classList.contains('open') &&
-       !card.classList.contains('show') &&
-       !card.classList.contains('match')
-     ) {
-       openCards.push(card);
-       card.classList.add('open', 'show');
+    //Function to start timer
+    function startTimer() {
+        timer = setInterval(function () {
+            seconds++;
+            if (seconds === 60) {
+                minutes++;
+                seconds = 0;
+            }
+            if (minutes === 60) {
+                hour++;
+                minutes = 0;
+            }
+            document.querySelector('.timer').innerText = formatTimerDisplay();
+        }, 1000);
+        
+    }
+    //Function to stop timer
+    function stopTimer() {
+        clearInterval(timer);
+        document.querySelector('.timer').innerText = formatTimerDisplay();
+    }
+    
+    function formatTimerDisplay() {
+        let sec = seconds > 9 ? String(seconds) : '0' + String(seconds);
+        let min = minutes > 9 ? String(minutes) : '0' + String(minutes);
+        return min  + ':' + sec;
+    }
 
-       if (openCards.length == 2) {
-         moveCount();
-         //When cards match leave facing up
-         if (openCards[0].dataset.card == openCards[1].dataset.card) {
-           openCards[0].classList.add('match');
-           openCards[0].classList.add('open');
-           openCards[0].classList.add('show');
+    
+    function verifyCardSate(targetCard) {
+        return !targetCard.classList.contains('open') && !targetCard.classList.contains('show') &&
+            !targetCard.classList.contains('match');
+    }
 
-           openCards[1].classList.add('match');
-           openCards[1].classList.add('open');
-           openCards[1].classList.add('show');
+    //Moves made by user
+    function setMoves() {
+        moves.innerHTML = counter;
+    }
 
-           openCards = [];
+    
+    function matchCard(card) {
+        card.classList.toggle('match');
+    }
+    //close cards
+    function closeCard(card) {
+        card.classList.remove('open', 'show');
+    }
+    //Function to open and show cards
+    function openCard(card) {
+        card.classList.add('open', 'show');
+    }
+    //Resets Game
+    function resetGame() {
+        moves.innerHTML = "";
+        window.location.reload();
+    }
 
-           winGame();
-         } else {
-           //When cards do not match flip back over
-           setTimeout(function() {
-             openCards.forEach(function(card) {
-               card.classList.remove('open', 'show');
-             });
-             openCards = [];
-           }, 1000);
-         }
-       }
-     }
-   });
- });
- //Timer resets
- let timer = document.querySelector('.timer');
- var timing;
- let second = 0;
+    function setScores(counter){
+        if (counter > 16 && counter <= 24 && rating.children.length ===3) {
+            let replcaeStar = rating.children[2]; 
+            rating.removeChild(replcaeStar);
+        }
+        else if (counter > 24 && counter <= 32 && rating.children.length ===2) {
+            let replcaeStar1 = rating.children[1];
+            rating.removeChild(replcaeStar1);
+        }
+    }
 
- function startTimer() {
-     timing = window.setInterval(function () {
-           timer.innerHTML = second + " secs";
-             second++;
-         }, 1000);
-}
+    
+    function flipModal() {
+        const modalElement = document.querySelector('.modal_background');
+        modalElement.classList.toggle('hide');
+    }
 
-function stopTimer() {
-  clearInterval(interval);
-}
+    
+    function displayResults() {
+        flipModal();
+        addGameStats();
+        document.querySelector('.modal_replay_button').addEventListener('click', resetGame);
+        document.querySelector('.modal_cancel_button').addEventListener('click', flipModal);
+    }
 
-function resetTimer() {
-  clearInterval(interval);
-}
-
- document.querySelector('.restart').addEventListener('click', resetTimer);
-
- //Move counter
- let moves = 0;
- let moveCounter = document.querySelector('.moves');
- let stars = document.querySelector('.stars');
- let one = document.querySelector('.one');
- let two = document.querySelector('.two');
-
- function moveCount() {
-   moves++;
-   moveCounter.innerHTML = moves;
- //Remove stars based on move count
-   if (moves > 12 && moves < 15) {
-     one.style.visibility = 'hidden';
-   }
-   else if (moves > 17) {
-     two.style.visibility = 'hidden';
-   }
- }
- /*Modal created with the help of https://www.w3schools.com/howto/howto_css_modals.asp
- */
- //When all cards match, change so that model is shown
- let matchedCards = document.getElementsByClassName('match');
- let modal = document.querySelector('.modal');
- let finalTime = document.querySelector('.finalTime');
- let finalRating = document.querySelector('.finalRating');
- let finalMoves = document.querySelector('.finalMoves');
-
- function winGame() {
-   if (matchedCards.length === 16) {
-     modal.style.display = "block";
-     finalRating.innerHTML = stars.innerHTML;
-     finalMoves.innerHTML = moveCounter.innerHTML;
-     finalTime.innerHTML = timer.innerHTML;
-   }
- }
-//<span> element that closes the model
- let span = document.getElementsByClassName("close")[0];
-//User clicks on <span> (x) to close the model
-span.onclick = function() {
-      model.style.display = "none";
- };	 
-//User clicks anywhere outside of modal will close
- window.onclick = function(event) {
-     if (event.target == modal) {
-         modal.style.display = "none";
-     }
- };
- //Play again button will clear model/reset timer
- document.querySelector('.button').addEventListener('click', playAgain);
- document.querySelector('.button').addEventListener('click', resetTimer);
- document.querySelector('.restart').addEventListener('click', playAgain);
-
- function playAgain() {
-   modal.style.display = "none";
-   moveCounter.innerHTML = 0;
-   one.style.visibility = 'visible';
-   two.style.visibility = 'visible';
- }
-
- }
+    p
+    function addGameStats() {
+        const timeSpan = document.querySelector('.modal_time');
+        const stopWatch = document.querySelector('.timer').innerHTML;
+        timeSpan.innerHTML = `Time taken= ${stopWatch}`;
+        const moveTracker = document.querySelector('.modal_moves');
+        moveTracker.innerHTML = `Moves made= ${moves.innerHTML}`;
+        const ratingTracker = document.querySelector('.modal_stars');
+        ratingTracker.innerHTML = `Your rating= ${rating.children.length}`;
+    }
 
  initGame();
